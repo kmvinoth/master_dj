@@ -2,10 +2,16 @@
 
 {% block title %} Login {% endblock %}
 
-{% block body_block %}
+{% block login %}       {% endblock %}
+
+{% block content %}     {% endblock %}
+
+{#change this block from footer to something else later#}
+{% block footer %}
 
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
 {% csrf_token %}
+
 <table>
 <tr>
     <td>{{ form.username.label_tag }}</td>

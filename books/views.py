@@ -1,30 +1,42 @@
 import _datetime  # built in date time
 
-from django.http import Http404, HttpResponse    # HttpResponse is a class
+from django.http import Http404, HttpResponse  # HttpResponse is a class
 from django.shortcuts import render
-# from django.contrib.auth.decorators import login_required
-
 
 # Create your views here.
 # Function based views
 # Homepage
 
-def login_success(request):
-    return HttpResponse("Your credentials are authenticated, your workspace will be created soon")
-
-
-def logout_view(request):
-    return render(request, 'logout.html')
-
 
 def home(request):
     return render(request, 'home.html')
+
+
+# After authentication and login this view decides who gets what
+def project_member_view(request):
+    if request.user.groups.filter(name='Project_admin').exists():
+        return project_admin_view(request)
+    else:
+        return render(request, 'Project_member.html')
+
+
+def project_admin_view(request):
+    return render(request, 'Project_admin.html')
+
+
+# project changes
+def admin_view(request):
+
+    if request.user.groups.filter(name='Project_admin').exists():
+        return HttpResponse("Show only the Digis admin content")
+
 
 # First view (static)
 
 
 def hello(request):
     return HttpResponse("Django Powered Page")
+
 
 # Second view (dynamic content but URL Static)
 
@@ -39,6 +51,7 @@ def current_datetime(request):
     now = _datetime.datetime.now()
     return render(request, 'current_datetime.html', {'current_date': now})
 
+
 # Third View (Dynamic URL's with dynamic content)
 
 
@@ -50,4 +63,3 @@ def hours_ahead(request, offset):
     dt = _datetime.datetime.now() + _datetime.timedelta(hours=offset)
     html = "<html><body>In %s hour(s), it will be %s.</body></html>" % (offset, dt)
     return HttpResponse(html)
-
