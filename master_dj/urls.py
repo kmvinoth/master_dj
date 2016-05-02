@@ -25,9 +25,9 @@ from books.views import *
 urlpatterns = [
     url(r'^$', home),
     url(r'^admin/', admin.site.urls),
+    url(r'^digis/admin/', admin.site.urls),
     url(r'^login/$', login, {'template_name': 'login.html', 'extra_context': {'next': '/login_success'}}),
     url(r'^login_success/$', project_member_view),
-    url(r'^digis/admin/$', admin_view),
     url(r'^logout/$', logout, {'template_name': 'logout.html', 'extra_context': {'next': '/signout'}}),
     url(r'^hello/$', hello),
     url(r'^datetime/$', current_datetime),
