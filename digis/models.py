@@ -3,6 +3,8 @@ from django.db import models
 
 # When the project admin adds the members, it should be added automatically to the users table in the database
 # with particular permissions  (to a particular group based on their role)
+
+
 class Members(models.Model):
     first_name = models.CharField(max_length=30)
     last_name  = models.CharField(max_length=30)
@@ -10,7 +12,7 @@ class Members(models.Model):
 
 
 class AdminstrativeMetaData(models.Model):
-    SubmittingOrganization    = models.CharField(max_length=80)
+    SubmittingOrganization   = models.CharField(max_length=80)
     OrganizationIdentifier   = models.CharField(max_length=80)
     ContractNumber           = models.CharField(max_length=80)
     Contact                  = models.CharField(max_length=80)

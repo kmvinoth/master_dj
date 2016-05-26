@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+
 # Loading the templates from registration defaults
 # from registration_defaults.settings import *
 
@@ -19,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'p0-se-%)fvl1yql!)&k4vsj=ak%85(54@oglrw$*6syves!k!4'
@@ -42,7 +43,8 @@ INSTALLED_APPS = [
     'bootstrap3',
     'books',
     'digis',
-    'registration_defaults'
+    'registration_defaults',
+    'django_python3_ldap',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -107,6 +109,68 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Authentication backends
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',
+                           'django_python3_ldap.auth.LDAPBackend',
+                           )
+
+""" LDAP Configuration settings """
+# The URL of the LDAP server.
+LDAP_AUTH_URL = "tyr1.zib.de"
+
+# Initiate TLS on connection.
+LDAP_AUTH_USE_TLS = False
+
+# The LDAP search base for looking up users.
+LDAP_AUTH_SEARCH_BASE = "ou=people,dc=zib,dc=de"
+
+# The LDAP class that represents a user.
+LDAP_AUTH_OBJECT_CLASS = "inetOrgPerson"
+
+# User model fields mapped to the LDAP
+# attributes that represent them.
+LDAP_AUTH_USER_FIELDS = {
+    "username": "uid",
+    "first_name": "givenName",
+    "last_name": "sn",
+    "email": "mail",
+}
+
+# A tuple of django model fields used to uniquely identify a user.
+LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
+
+# Path to a callable that takes a dict of {model_field_name: value},
+# returning a dict of clean model data.
+# Use this to customize how data loaded from LDAP is saved to the User model.
+LDAP_AUTH_CLEAN_USER_DATA = "django_python3_ldap.utils.clean_user_data"
+
+# Path to a callable that takes a user model and a dict of {ldap_field_name: [value]},
+# and saves any additional user relationships based on the LDAP data.
+# Use this to customize how data loaded from LDAP is saved to User model relations.
+# For customizing non-related User model fields, use LDAP_AUTH_CLEAN_USER_DATA.
+LDAP_AUTH_SYNC_USER_RELATIONS = "django_python3_ldap.utils.sync_user_relations"
+
+# Path to a callable that takes a dict of {ldap_field_name: value},
+# returning a list of [ldap_search_filter]. The search filters will then be AND'd
+# together when creating the final search filter.
+LDAP_AUTH_FORMAT_SEARCH_FILTERS = "django_python3_ldap.utils.format_search_filters"
+
+# Path to a callable that takes a dict of {model_field_name: value}, and returns
+# a string of the username to bind to the LDAP server.
+# Use this to support different types of LDAP server.
+LDAP_AUTH_FORMAT_USERNAME = "django_python3_ldap.utils.format_username_openldap"
+
+# Sets the login domain for Active Directory users.
+LDAP_AUTH_ACTIVE_DIRECTORY_DOMAIN = None
+
+# The LDAP username and password of a user for authenticating the `ldap_sync_users`
+# management command. Set to None if you allow anonymous queries.
+LDAP_AUTH_CONNECTION_USERNAME = None
+LDAP_AUTH_CONNECTION_PASSWORD = None
+
+""" End of LDAP Configuration settings  """
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -122,6 +186,6 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
+# https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'

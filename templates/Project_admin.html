@@ -1,15 +1,12 @@
-{% extends "base.html" %}
+{#{% extends "base.html" %}#}
 
-{% block login %}<a href="/digis/admin"> Admin </a>{% endblock %}
+<a href="/digis/admin"> Admin </a> <br>
 
-{% block logout %}<a href="/logout"> Logout </a>{% endblock %}
+<a href="/loggedout"> Logout </a>
 
-{% block content %}
 
-<p>Hi {{ user }}, You are The Project admin.<br>
+<p>Hi {{ user }}, Welcome back.<br><br>
 
-By default you get the member view and if you want to make administrative changes to the project, click Admin at the top.<br>
+    By default you get the member view and if you want to make administrative changes to the project, click Admin at the top.<br><br>
 
-Your personalized workspace will be created soon.</p>
-
-{% endblock %}
+    Your personalized workspace will be created soon.</p>

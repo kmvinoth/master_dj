@@ -1,4 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+
+# class LdapUsers(AbstractUser):
+#     ldap_id = models.IntegerField()
 
 
 class Publisher(models.Model):

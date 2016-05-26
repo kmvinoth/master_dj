@@ -1,36 +1,19 @@
-{% extends "base.html" %}
+{#{% extends "base.html" %}#}
 
-{% block title %} ZIB@DTP {% endblock %}
+<!DOCTYPE html>
+<html lang='en'>
 
-{% block login %}
-<a href="/login"> Login </a>
-{% endblock %}
+<head>
 
-{% block content %}
+    <title>DTP@ZIB</title>
 
-<<!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Data transfer portal of ZIB!</h1>
-        <p>The goal of this project is to develop a web-based tool to upload data in a standardized way including the acquisition of
-            mandatory and optional meta data. This project together with the project on "Research Data Management at ZIB" should be
-            seen as a joint effort to further improve the data management at ZIB.</p>
-      </div>
-    </div>
+    <h1>Data Transfer Portal</h1>
 
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4">
-          <h2>Online Portal for Data Transfer from External Collaborators</h2>
-          <p>In many projects at ZIB, data needs to be transferred from external collaborators to the institute, where the data are processed.
-              These data are transferred via many different ways including FTP, SecureCopy, hard drives and even DVDs.
-              After transferring the data, they are generally stored in a decentralized infrastructure at each department or research group.
-              To store additional information (meta data) describing how the data was created, who created it and what is described by the data,
-              text files are often stored together with the data. However, no standardized way exists to store the data and currently no common tool
-              is available to support the acquisition of such meta data. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-      </div>
+    <a href="/std_login"> Standard Login </a> <br><br>
 
-{% endblock %}
+    <a href="/ldap_login"> LDAP Login</a>
+
+</head>
+
+
+

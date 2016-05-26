@@ -2,6 +2,8 @@ import _datetime  # built in date time
 
 from django.http import Http404, HttpResponse  # HttpResponse is a class
 from django.shortcuts import render
+from django.contrib.auth.models import User
+from django_python3_ldap.ldap import authenticate
 
 # Create your views here.
 # Function based views
@@ -10,6 +12,23 @@ from django.shortcuts import render
 
 def home(request):
     return render(request, 'home.html')
+
+
+def ldap_auth(request):
+
+    return render(request, "ldap_login.html")
+
+
+def ldap_sucess(request):
+    uname = request.POST.get('username')
+    pwd   = request.POST.get('password')
+
+    user = authenticate(username=uname, password=pwd)
+
+    if user is not None:
+        return HttpResponse("User is authenticated using LDAP credentials")
+    else:
+        return HttpResponse("User is None")
 
 
 # After authentication and login this view decides who gets what
