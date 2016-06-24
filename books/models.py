@@ -1,9 +1,37 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
+from enumfields import EnumField
+from enumfields import Enum
 
 
-# class LdapUsers(AbstractUser):
-#     ldap_id = models.IntegerField()
+class AuthFlag(Enum):
+    DJANGO_AUTH = '0'
+    LDAP_AUTH   = '1'
+    OAUTH       = '2'
+
+
+class DjangoUser(models.Model):
+    ldap_u = models.OneToOneField(User)
+    which_auth = EnumField(AuthFlag, max_length=1, default='0')
+
+    def __str__(self):
+        return self.which_auth
+
+
+class LdapUser(models.Model):
+    ldap_u = models.OneToOneField(User)
+    which_auth = EnumField(AuthFlag, max_length=1, default='1')
+
+    def __str__(self):
+        return self.which_auth
+
+
+class OauthUser(models.Model):
+    oauth_u = models.OneToOneField(User)
+    which_auth = EnumField(AuthFlag, max_length=1, default='2')
+
+    def __str__(self):
+        return self.which_auth
 
 
 class Publisher(models.Model):

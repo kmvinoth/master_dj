@@ -1,11 +1,13 @@
 {#{% extends "base.html" %}#}
 
-<a href="/digis/admin"> Admin </a> <br>
+<a href="/WorkSpace"> MyWorkSpace </a>
+
+<a href="/digis/admin"> Admin </a>
 
 <a href="/loggedout"> Logout </a>
 
 
-<p>Hi {{ user }}, Welcome back.<br><br>
+<p>Hi {{ user.first_name }}, Welcome back.<br><br>
 
     By default you get the member view and if you want to make administrative changes to the project, click Admin at the top.<br><br>
 

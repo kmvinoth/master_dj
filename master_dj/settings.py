@@ -40,11 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap3',
     'books',
     'digis',
-    'registration_defaults',
     'django_python3_ldap',
+    'rolepermissions',
+    'fixmydjango',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'master_dj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'new_db'),
     }
 }
 
@@ -169,6 +169,9 @@ LDAP_AUTH_CONNECTION_USERNAME = None
 LDAP_AUTH_CONNECTION_PASSWORD = None
 
 """ End of LDAP Configuration settings  """
+
+""" Required for django-role-permissions"""
+ROLEPERMISSIONS_MODULE = 'master_dj.roles'
 
 
 # Internationalization

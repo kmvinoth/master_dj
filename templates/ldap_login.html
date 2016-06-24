@@ -1,35 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>ldap_login</title>
+
 </head>
+
 <body>
 
-<h1>LDAP Login</h1>
+<h1>Ldap Login</h1>
 
-<form method="post"> {% csrf_token %}
+<p> Use your LDAP credentials</p>
 
-    <table>
-        <tr>
-            <td> Username  : </td>
-            <td> <input type="text" name="Username"> </td>
-        </tr>
+<form action= "accounts/ldap_auth" method="post">{% csrf_token %}
+  Username:<br>
+  <input type="text" name="username">
+  <br>
+  Password:<br>
+  <input type="password" name="password"><br><br>
 
-        <tr>
-            <td> Password : </td>
-            <td> <input type="password" name="password"/> </td>
-        </tr>
-    </table>
-    <input type="submit" value="Sign in"/>
-    <input type="hidden" name="next" value="{{ next }} "/>
-
+    <input type="submit"  value="Sign in" >
 </form>
-
-
-{#{% if form.errors %}#}
-{#    <p>Your username and password didn't match. Please try again.</p>#}
-{#{% endif %}#}
-
-</body>
-</html>
