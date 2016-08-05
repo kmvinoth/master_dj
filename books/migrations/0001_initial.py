@@ -2,9 +2,10 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import enumfields.fields
-import books.models
 from django.conf import settings
+import books.models
+import datetime
+import enumfields.fields
 
 
 class Migration(migrations.Migration):
@@ -15,54 +16,36 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Author',
+            name='Authenticationbackend',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('first_name', models.CharField(max_length=30)),
-                ('last_name', models.CharField(max_length=40)),
-                ('email', models.EmailField(max_length=254)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('which_auth', enumfields.fields.EnumField(max_length=10, default='django_auth', enum=books.models.AuthFlag)),
+                ('std_u', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
-            name='Book',
+            name='Organization',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('title', models.CharField(max_length=100)),
-                ('publication_date', models.DateField()),
-                ('authors', models.ManyToManyField(to='books.Author')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('Name', models.CharField(max_length=100)),
+                ('Identifier', models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='LdapUser',
+            name='Projects',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('which_auth', enumfields.fields.EnumField(enum=books.models.AuthFlag, max_length=1)),
-                ('ldap_u', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('Name', models.CharField(max_length=100)),
+                ('PrId', models.CharField(max_length=100)),
+                ('StartDate', models.DateField(default=datetime.date.today)),
+                ('EndDate', models.DateField(default=datetime.date.today)),
+                ('Status', enumfields.fields.EnumField(max_length=10, enum=books.models.StatusFlag)),
+                ('ProjectHead', models.CharField(max_length=100)),
+                ('Partners', models.CharField(max_length=100)),
+                ('Description', models.TextField()),
+                ('FundingAgency', models.CharField(max_length=100)),
+                ('Budget', models.IntegerField()),
+                ('organization', models.ForeignKey(to='books.Organization')),
             ],
-        ),
-        migrations.CreateModel(
-            name='OauthUser',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('which_auth', enumfields.fields.EnumField(enum=books.models.AuthFlag, max_length=1)),
-                ('oauth_u', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Publisher',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
-                ('name', models.CharField(max_length=30)),
-                ('address', models.CharField(max_length=50)),
-                ('city', models.CharField(max_length=60)),
-                ('state_province', models.CharField(max_length=30)),
-                ('country', models.CharField(max_length=50)),
-                ('website', models.URLField()),
-            ],
-        ),
-        migrations.AddField(
-            model_name='book',
-            name='publisher',
-            field=models.ForeignKey(to='books.Publisher'),
         ),
     ]

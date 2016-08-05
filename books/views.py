@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django_python3_ldap import ldap
 from .forms import LoginForm
+from django.contrib.auth.models import User
 from .models import *
 
 
@@ -13,8 +14,7 @@ def home(request):
 # View for Standard login template
 def std_login(request):
 
-    print(request.META)
-
+    # print(request.META)
     form = LoginForm
     context = {'form': form}
     return render(request, 'login.html', context)
@@ -23,12 +23,13 @@ def std_login(request):
 # View for Standard authentication and login
 def std_auth(request):
 
-    print(request.META)
+    # print(request.META)
     username = request.POST.get('username')
     password = request.POST.get('password')
 
     try:
         user = authenticate(username=username, password=password)
+
         if user.backend == 'django.contrib.auth.backends.ModelBackend':
             login(request, user)
             return HttpResponseRedirect('/login_success')
@@ -37,7 +38,7 @@ def std_auth(request):
 
     except AttributeError:
         print("Authentication fails and returns None object")
-        return HttpResponse("User not in the database")
+        return HttpResponse("Invalid username or password")
 
 
 # View for LDAP login template
@@ -48,18 +49,27 @@ def ldap_login(request):
 def ldap_auth(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
-    # ldap authenticate
-    user = ldap.authenticate(username=username, password=password)
-    # ldap authenticate does not set an backend attribute on the user object
-    # (which is required for the login function), so you have set that manually
-    user.backend = 'django_python3_ldap.auth.LDAPBackend'
-    user.save()
 
-    if user is not None:
-        login(request, user)
-        return HttpResponseRedirect('/login_success')
-    else:
-        return HttpResponse('Invalid(LDAP) username or password credentials')
+    try:
+        # ldap authenticate
+        user = ldap.authenticate(username=username, password=password)
+        # ldap authenticate does not set an backend attribute on the user object
+        # (which is required for the login function), so you have set that manually
+        user.backend = 'django_python3_ldap.auth.LDAPBackend'
+        user.save()
+
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect('/login_success')
+
+    except AttributeError:
+        print("Authentication fails and returns None object")
+        return HttpResponse('Invalid(LDAP) username or password')
+
+
+def metadata(request):
+
+    return HttpResponse("Meta data function")
 
 
 # After authentication and login this view decides who gets what

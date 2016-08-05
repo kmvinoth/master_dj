@@ -1,25 +1,31 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
+
 
 # Register your models here.
-from .models import Publisher, Author, Book, DjangoUser
+from .models import Authenticationbackend, Organization, Projects
 
 
-class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email')
-    search_fields = ('first_name', 'last_name')
+class AuthenticationbackendAdminInline(admin.StackedInline):
+    model = Authenticationbackend
 
 
-class BookAdmin(admin.ModelAdmin):
-    list_display = ('title', 'publisher', 'publication_date')
-    list_filter = ('publication_date',)
-    date_hierarchy = 'publication_date'
+# Define a new User admin
+class UserAdmin(BaseUserAdmin):
+    inlines = (AuthenticationbackendAdminInline, )
 
 
-class DjangoUserAdmin(admin.ModelAdmin):
-    list_display = ('which_auth',)
+class OrganizationAdmin(admin.ModelAdmin):
+    list_display = ('Name', 'Identifier')
 
 
-admin.site.register(DjangoUser, DjangoUserAdmin)
-admin.site.register(Publisher)
-admin.site.register(Author, AuthorAdmin)
-admin.site.register(Book, BookAdmin)
+class ProjectsAdmin(admin.ModelAdmin):
+    list_display = ('Name', 'PrId', 'StartDate', 'Status', 'ProjectHead')
+
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
+admin.site.register(Organization, OrganizationAdmin)
+admin.site.register(Projects, ProjectsAdmin)
+

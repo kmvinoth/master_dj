@@ -2,58 +2,52 @@ from django.db import models
 from django.contrib.auth.models import User
 from enumfields import EnumField
 from enumfields import Enum
+from datetime import date
 
 
 class AuthFlag(Enum):
-    DJANGO_AUTH = '0'
-    LDAP_AUTH   = '1'
-    OAUTH       = '2'
+    DJANGO_AUTH = 'django_auth'
+    LDAP_AUTH   = 'ldap_auth'
+    OAUTH       = 'o_auth'
 
 
-class DjangoUser(models.Model):
-    ldap_u = models.OneToOneField(User)
-    which_auth = EnumField(AuthFlag, max_length=1, default='0')
-
-    def __str__(self):
-        return self.which_auth
+class StatusFlag(Enum):
+    OPEN = 'open'
+    CLOSED = 'closed'
 
 
-class LdapUser(models.Model):
-    ldap_u = models.OneToOneField(User)
-    which_auth = EnumField(AuthFlag, max_length=1, default='1')
+class Authenticationbackend(models.Model):
+    std_u = models.OneToOneField(User)
+    which_auth = EnumField(AuthFlag, default='django_auth')
 
     def __str__(self):
         return self.which_auth
 
 
-class OauthUser(models.Model):
-    oauth_u = models.OneToOneField(User)
-    which_auth = EnumField(AuthFlag, max_length=1, default='2')
-
-    def __str__(self):
-        return self.which_auth
+# As of now only one organization (ZIB)
+class Organization(models.Model):
+    Name       = models.CharField(max_length=100)
+    Identifier = models.CharField(max_length=100)
 
 
-class Publisher(models.Model):
-    name = models.CharField(max_length=30)
-    address = models.CharField(max_length=50)
-    city = models.CharField(max_length=60)
-    state_province = models.CharField(max_length=30)
-    country = models.CharField(max_length=50)
-    website = models.URLField()
+class Projects(models.Model):
+    Name            = models.CharField(max_length=100)
+    PrId            = models.CharField(max_length=100)
+    StartDate       = models.DateField(default=date.today)
+    EndDate         = models.DateField(default=date.today)
+    Status          = EnumField(StatusFlag)
+    ProjectHead     = models.CharField(max_length=100)
+    Partners        = models.CharField(max_length=100)
+    Description     = models.TextField()
+    FundingAgency   = models.CharField(max_length=100)
+    Budget          = models.IntegerField()
+    organization    = models.ForeignKey(Organization)
 
 
-class Author(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=40)
-    email = models.EmailField()
+class ProjectMetadataSet(models.Model):
 
-    def __str__(self):
-        return self.first_name
-
-
-class Book(models.Model):
-    title = models.CharField(max_length=100)
-    authors = models.ManyToManyField(Author)
-    publisher = models.ForeignKey(Publisher)
-    publication_date = models.DateField()
+    """ Mandatory meta data """
+    """ Customary meta data """
+    container = models.ForeignKey(Projects)
+    key       = models.CharField(max_length=100)
+    value     = models.CharField(max_length=100)
