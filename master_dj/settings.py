@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    # 'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -43,8 +44,8 @@ INSTALLED_APPS = [
     'books',
     'digis',
     'django_python3_ldap',
-    'rolepermissions',
     'fixmydjango',
+    # 'eav',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -85,7 +86,7 @@ WSGI_APPLICATION = 'master_dj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'today_db'),
+        'NAME': os.path.join(BASE_DIR, 'model_db'),
     }
 }
 
@@ -192,3 +193,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# SITE_ID = 1

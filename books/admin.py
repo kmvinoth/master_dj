@@ -4,17 +4,7 @@ from django.contrib.auth.models import User
 
 
 # Register your models here.
-from .models import Authenticationbackend, Organization, Projects
-
-
-class AuthenticationbackendAdminInline(admin.StackedInline):
-    model = Authenticationbackend
-
-
-# Define a new User admin
-class UserAdmin(BaseUserAdmin):
-    inlines = (AuthenticationbackendAdminInline, )
-
+from .models import Organization, Projects
 
 class OrganizationAdmin(admin.ModelAdmin):
     list_display = ('Name', 'Identifier')
@@ -25,7 +15,6 @@ class ProjectsAdmin(admin.ModelAdmin):
 
 
 admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
 admin.site.register(Organization, OrganizationAdmin)
 admin.site.register(Projects, ProjectsAdmin)
 

@@ -1,14 +1,11 @@
-from django.db import models
-from django.contrib.auth.models import User
-from enumfields import EnumField
-from enumfields import Enum
 from datetime import date
 
-
-class AuthFlag(Enum):
-    DJANGO_AUTH = 'django_auth'
-    LDAP_AUTH   = 'ldap_auth'
-    OAUTH       = 'o_auth'
+from django.contrib.auth.models import User
+from django.db import models
+from enumfields import Enum
+from enumfields import EnumField
+# import eav
+# from eav.models import Attribute
 
 
 class StatusFlag(Enum):
@@ -16,18 +13,22 @@ class StatusFlag(Enum):
     CLOSED = 'closed'
 
 
-class Authenticationbackend(models.Model):
-    std_u = models.OneToOneField(User)
-    which_auth = EnumField(AuthFlag, default='django_auth')
-
-    def __str__(self):
-        return self.which_auth
-
-
 # As of now only one organization (ZIB)
 class Organization(models.Model):
     Name       = models.CharField(max_length=100)
     Identifier = models.CharField(max_length=100)
+
+
+class ProjectMdSet(models.Model):
+    label     = models.CharField(max_length=100)
+
+
+class DepositMdSet(models.Model):
+    l1       = models.CharField(max_length=100)
+
+
+class DataObjectMdSet(models.Model):
+    l2      = models.CharField(max_length=100)
 
 
 class Projects(models.Model):
@@ -42,12 +43,40 @@ class Projects(models.Model):
     FundingAgency   = models.CharField(max_length=100)
     Budget          = models.IntegerField()
     organization    = models.ForeignKey(Organization)
+    mdset_project   = models.ForeignKey(ProjectMdSet)
 
 
-class ProjectMetadataSet(models.Model):
+class Deposit(models.Model):
+    mdset_deposit = models.ForeignKey(DepositMdSet)
+    depo          = models.ForeignKey(Projects)
 
-    """ Mandatory meta data """
-    """ Customary meta data """
-    container = models.ForeignKey(Projects)
-    key       = models.CharField(max_length=100)
-    value     = models.CharField(max_length=100)
+
+class DataObject(models.Model):
+    mdset_data_object = models.ForeignKey(DataObjectMdSet)
+    obj               = models.ForeignKey(Deposit)
+
+
+class Reporter(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.EmailField()
+
+    def __str__(self):              # __unicode__ on Python 2
+        return "%s %s" % (self.first_name, self.last_name)
+
+
+class Article(models.Model):
+    headline = models.CharField(max_length=100)
+    pub_date = models.DateField()
+    reporter = models.ForeignKey(Reporter)
+
+    def __str__(self):              # __unicode__ on Python 2
+        return self.headline
+
+    class Meta:
+        ordering = ('headline',)
+
+
+
+
+

@@ -82,3 +82,4 @@ def project_member_view(request):
 
 def project_admin_view(request):
     return render(request, 'Project_admin.html')
+

@@ -34,5 +34,6 @@ urlpatterns = [
     url(r'^ldap_login/accounts/ldap_auth$', ldap_auth),
     # url(r'^login/$', login, {'template_name': 'login.html', 'extra_context': {'next': '/login_success'}}),
     url(r'^login_success/$', project_member_view),
+    url(r'^metadata/$', metadata),
     url(r'^loggedout/$', logout, {'template_name': 'logout.html', 'extra_context': {'next': '/logout'}}),
 ]
