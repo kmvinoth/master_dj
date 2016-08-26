@@ -4,8 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from enumfields import Enum
 from enumfields import EnumField
-# import eav
-# from eav.models import Attribute
+import eav
 
 
 class StatusFlag(Enum):
@@ -16,65 +15,44 @@ class StatusFlag(Enum):
 # As of now only one organization (ZIB)
 class Organization(models.Model):
     Name       = models.CharField(max_length=100)
-    Identifier = models.CharField(max_length=100)
+    Identifier = models.CharField(max_length=100, blank=True, null=True)
 
-
-class ProjectMdSet(models.Model):
-    label     = models.CharField(max_length=100)
-
-
-class DepositMdSet(models.Model):
-    l1       = models.CharField(max_length=100)
-
-
-class DataObjectMdSet(models.Model):
-    l2      = models.CharField(max_length=100)
+    def __str__(self):
+        return self.Name
 
 
 class Projects(models.Model):
     Name            = models.CharField(max_length=100)
-    PrId            = models.CharField(max_length=100)
-    StartDate       = models.DateField(default=date.today)
-    EndDate         = models.DateField(default=date.today)
-    Status          = EnumField(StatusFlag)
-    ProjectHead     = models.CharField(max_length=100)
-    Partners        = models.CharField(max_length=100)
-    Description     = models.TextField()
-    FundingAgency   = models.CharField(max_length=100)
-    Budget          = models.IntegerField()
+    # PrId            = models.CharField(max_length=100, blank=True, null=True)
+    # StartDate       = models.DateField(default=date.today, blank=True, null=True)
+    # EndDate         = models.DateField(default=date.today, blank=True, null=True)
+    # Status          = EnumField(StatusFlag, blank=True, null=True)
+    # ProjectHead     = models.CharField(max_length=100, blank=True, null=True)
+    # Partners        = models.CharField(max_length=100, blank=True, null=True)
+    # Description     = models.TextField(blank=True, null=True)
+    # FundingAgency   = models.CharField(max_length=100, blank=True, null=True)
+    # Budget          = models.IntegerField(blank=True, null=True)
     organization    = models.ForeignKey(Organization)
-    mdset_project   = models.ForeignKey(ProjectMdSet)
+
+    def __str__(self):
+        return self.Name
 
 
 class Deposit(models.Model):
-    mdset_deposit = models.ForeignKey(DepositMdSet)
-    depo          = models.ForeignKey(Projects)
+    project = models.ForeignKey(Projects)
+
+    def __str__(self):
+        return self.project
 
 
 class DataObject(models.Model):
-    mdset_data_object = models.ForeignKey(DataObjectMdSet)
-    obj               = models.ForeignKey(Deposit)
+    deposit = models.ForeignKey(Deposit)
+
+eav.register(Projects)
+eav.register(Deposit)
+eav.register(DataObject)
 
 
-class Reporter(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.EmailField()
-
-    def __str__(self):              # __unicode__ on Python 2
-        return "%s %s" % (self.first_name, self.last_name)
-
-
-class Article(models.Model):
-    headline = models.CharField(max_length=100)
-    pub_date = models.DateField()
-    reporter = models.ForeignKey(Reporter)
-
-    def __str__(self):              # __unicode__ on Python 2
-        return self.headline
-
-    class Meta:
-        ordering = ('headline',)
 
 
 

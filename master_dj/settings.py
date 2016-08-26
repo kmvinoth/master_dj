@@ -35,17 +35,15 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    # 'django.contrib.sites',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'books',
-    'digis',
     'django_python3_ldap',
-    'fixmydjango',
-    # 'eav',
+    'eav',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -86,7 +84,7 @@ WSGI_APPLICATION = 'master_dj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'model_db'),
+        'NAME': os.path.join(BASE_DIR, 'eav_db'),
     }
 }
 
@@ -171,9 +169,6 @@ LDAP_AUTH_CONNECTION_PASSWORD = None
 
 """ End of LDAP Configuration settings  """
 
-""" Required for django-role-permissions"""
-ROLEPERMISSIONS_MODULE = 'master_dj.roles'
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
@@ -194,4 +189,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# SITE_ID = 1
+# required for django-eav
+SITE_ID = 1

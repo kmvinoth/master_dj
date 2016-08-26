@@ -5,6 +5,7 @@ from django_python3_ldap import ldap
 from .forms import LoginForm
 from django.contrib.auth.models import User
 from .models import *
+from eav.models import Attribute
 
 
 def home(request):
