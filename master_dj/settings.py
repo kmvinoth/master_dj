@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'books',
     'django_python3_ldap',
-    'eav',
+    # 'eav',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'master_dj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'eav_db'),
+        'NAME': os.path.join(BASE_DIR, 'models_db'),
     }
 }
 
