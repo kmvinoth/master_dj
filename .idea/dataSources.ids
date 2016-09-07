@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="db" uuid="450ec2d7-00f8-4c9e-a30c-1c161f25fe37">
+  <data-source name="models_db" uuid="d3f3bb15-db61-4f54-a1fa-ee27e467541f">
     <database-info product="SQLite" version="3.8.9" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
     <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
     <schema name="" catalog=""/>
@@ -69,19 +69,6 @@
       <foreign-key name="#FAKE_books_dataobject_1" columns="deposit_id" ref-table="books_deposit" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <index name="books_dataobject_57673d9d" unique="true" columns="deposit_id"/>
     </table>
-    <table name="books_dataobjectmdset" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="dataobject_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="deposit_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="klt_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <primary-key columns="id"/>
-      <foreign-key name="#FAKE_books_dataobjectmdset_1" columns="klt_id" ref-table="books_klt" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_books_dataobjectmdset_2" columns="deposit_id" ref-table="books_deposit" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_books_dataobjectmdset_3" columns="dataobject_id" ref-table="books_dataobject" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <index name="books_dataobjectmdset_00795b41" unique="true" columns="klt_id"/>
-      <index name="books_dataobjectmdset_57673d9d" unique="true" columns="deposit_id"/>
-      <index name="books_dataobjectmdset_9efa5725" unique="true" columns="dataobject_id"/>
-    </table>
     <table name="books_deposit" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="project_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
@@ -89,26 +76,28 @@
       <foreign-key name="#FAKE_books_deposit_1" columns="project_id" ref-table="books_projects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <index name="books_deposit_b098ad43" unique="true" columns="project_id"/>
     </table>
-    <table name="books_depositmdset" schema="" catalog="" type="TABLE">
+    <table name="books_keylabeltype" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="deposit_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="klt_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="project_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <primary-key columns="id"/>
-      <foreign-key name="#FAKE_books_depositmdset_1" columns="project_id" ref-table="books_projects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_books_depositmdset_2" columns="klt_id" ref-table="books_klt" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_books_depositmdset_3" columns="deposit_id" ref-table="books_deposit" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <index name="books_depositmdset_b098ad43" unique="true" columns="project_id"/>
-      <index name="books_depositmdset_00795b41" unique="true" columns="klt_id"/>
-      <index name="books_depositmdset_57673d9d" unique="true" columns="deposit_id"/>
-    </table>
-    <table name="books_klt" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="key" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="label" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
-      <column name="key" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
-      <column name="value" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
-      <column name="type" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
+      <column name="datatype" sqlType="VARCHAR(10)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
       <primary-key columns="id"/>
+    </table>
+    <table name="books_metadataset" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="dataobject_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="deposit_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="klt_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="project_id" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_books_metadataset_1" columns="project_id" ref-table="books_projects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_books_metadataset_2" columns="klt_id" ref-table="books_keylabeltype" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_books_metadataset_3" columns="deposit_id" ref-table="books_deposit" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_books_metadataset_4" columns="dataobject_id" ref-table="books_dataobject" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="books_metadataset_b098ad43" unique="true" columns="project_id"/>
+      <index name="books_metadataset_00795b41" unique="true" columns="klt_id"/>
+      <index name="books_metadataset_57673d9d" unique="true" columns="deposit_id"/>
+      <index name="books_metadataset_9efa5725" unique="true" columns="dataobject_id"/>
     </table>
     <table name="books_organization" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
@@ -116,29 +105,20 @@
       <column name="Identifier" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <primary-key columns="id"/>
     </table>
-    <table name="books_prmdset" schema="" catalog="" type="TABLE">
-      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="klt_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <column name="project_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
-      <primary-key columns="id"/>
-      <foreign-key name="#FAKE_books_prmdset_1" columns="project_id" ref-table="books_projects" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <foreign-key name="#FAKE_books_prmdset_2" columns="klt_id" ref-table="books_klt" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <index name="books_prmdset_b098ad43" unique="true" columns="project_id"/>
-      <index name="books_prmdset_00795b41" unique="true" columns="klt_id"/>
-    </table>
     <table name="books_projects" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <column name="Name" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="false" jdbcType="12"/>
-      <column name="PrId" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
-      <column name="StartDate" sqlType="DATE" precision="0" scale="-1" nullable="true" jdbcType="12"/>
-      <column name="EndDate" sqlType="DATE" precision="0" scale="-1" nullable="true" jdbcType="12"/>
-      <column name="Status" sqlType="VARCHAR(10)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
-      <column name="ProjectHead" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
-      <column name="Description" sqlType="TEXT" precision="0" scale="-1" nullable="true" jdbcType="12"/>
-      <column name="organization_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
       <primary-key columns="id"/>
-      <foreign-key name="#FAKE_books_projects_1" columns="organization_id" ref-table="books_organization" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
-      <index name="books_projects_26b2345e" unique="true" columns="organization_id"/>
+    </table>
+    <table name="books_value" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <column name="value_text" sqlType="VARCHAR(100)" precision="0" scale="-1" nullable="true" jdbcType="12"/>
+      <column name="value_int" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
+      <column name="value_float" sqlType="DECIMAL" precision="0" scale="-1" nullable="true" jdbcType="6"/>
+      <column name="metadataset_id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_books_value_1" columns="metadataset_id" ref-table="books_metadataset" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="books_value_c64ba85d" unique="true" columns="metadataset_id"/>
     </table>
     <table name="django_admin_log" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>

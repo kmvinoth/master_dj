@@ -1,14 +1,38 @@
-{#{% extends "base.html" %}#}
+{% extends "base.html" %}
 
-<a href="/WorkSpace"> MyWorkSpace </a>
-
-<a href="/digis/admin"> Admin </a>
-
-<a href="/loggedout"> Logout </a>
+{% block title %} Projects {% endblock %}
 
 
-<p>Hi {{ user.first_name }}, Welcome back.<br><br>
 
-    By default you get the member view and if you want to make administrative changes to the project, click Admin at the top.<br><br>
+{% block content %}
 
-    Your personalized workspace will be created soon.</p>
+    <div class="container navless-container">
+        <div class="content">
+            <p>Hi {{ user.first_name }}, Welcome to Data Deposit Portal
+            <div class="row">
+                <div class="col-sm-2 brand-holder pull-left">
+                    <h3>
+                        Menu
+                    </h3>
+
+                    <a href="/projects"> Projects </a> <br><br>
+
+                    <a href="/deposit"> Deposit </a> <br><br>
+
+                    <a href="/fileupload"> Fileupload </a> <br><br>
+
+                    <a href="/loggedout"> Logout </a> <br><br>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+
+

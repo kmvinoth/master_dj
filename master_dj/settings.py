@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'books',
     'django_python3_ldap',
-    # 'eav',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -189,5 +188,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# required for django-eav
 SITE_ID = 1

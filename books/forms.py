@@ -1,24 +1,26 @@
 from django import forms
+from django.forms import widgets
 from .models import User
 
 
-class LoginForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'password']
+class LdapLoginForm(forms.Form):
+    # make sure ldap login (username) is only Char
+    ldap_login    = forms.CharField(max_length=100)
+    ldap_password = forms.CharField(widget=forms.PasswordInput)
 
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-
-        if username is not None:
-            return username
-        else:
-            raise forms.ValidationError("Enter a valid username")
-
-    def clean_password(self):
-        password = self.cleaned_data.get('password')
-
-        if password is not None:
-            return password
-        else:
-            raise forms.ValidationError("Enter a valid password")
+    # def clean_ldap_login(self):
+    #     ldap_login = self.cleaned_data['ldap_login']
+    #     empty      = ''
+    #     if ldap_login is empty:
+    #         raise forms.ValidationError("Missing ldap login credential")
+    #     return ldap_login
+    #
+    # def clean_ldap_password(self):
+    #     ldap_password = self.cleaned_data['ldap_password']
+    #     empty    = ''
+    #     if ldap_password is empty:
+    #         raise forms.ValidationError("Missing ldap password")
+    #     return ldap_password
+    #
+    #
+    #

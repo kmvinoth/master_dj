@@ -26,14 +26,18 @@ from books.views import*
 
 urlpatterns = [
     url(r'^$', home),
+    url(r'^search_form/$', search_form),
+    url(r'^search/$', search),
     url(r'^admin/', admin.site.urls),
     url(r'^digis/admin/', admin.site.urls),
     url(r'^login/$', std_login),
-    url(r'^login/accounts/std_auth$', std_auth),
+    url(r'^signin/std_auth$', std_auth),
     url(r'^ldap_login/$', ldap_login),
-    url(r'^ldap_login/accounts/ldap_auth$', ldap_auth),
+    url(r'^signin/ldap_auth$', ldap_auth),
     # url(r'^login/$', login, {'template_name': 'login.html', 'extra_context': {'next': '/login_success'}}),
     url(r'^login_success/$', project_member_view),
-    url(r'^metadata/$', metadata),
     url(r'^loggedout/$', logout, {'template_name': 'logout.html', 'extra_context': {'next': '/logout'}}),
+    url(r'^projects/$', projects_view,),
+    url(r'^deposit/$', deposit_view,),
+    url(r'^fileupload/$', dataobject_view,),
 ]

@@ -1,48 +1,36 @@
 from django.contrib import admin
 
-
 # Register your models here.
-from .models import Organization, Projects, Klt, PrMdSet, Deposit, DataObject, DepositMdSet, DataObjectMdSet
+from .models import Projects, Deposit, DataObject, KeyLabelType, MetadataSet, Value
 
 
-class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ('Name', 'Identifier')
-
-
-class KltAdmin(admin.ModelAdmin):
-    list_display = ('key','label')
-
-
-class PrAdmin(admin.ModelAdmin):
-    list_display = ('Name', 'ProjectHead','organization')
-
-
-class PrMdsetAdmin(admin.ModelAdmin):
-    list_display = ('project', 'klt')
+class ProjectsAdmin(admin.ModelAdmin):
+    list_display = ('Name',)
 
 
 class DepositAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project')
-
-
-class DepositMdsetAdmin(admin.ModelAdmin):
-    list_display = ('project','deposit', 'klt')
+    list_display = ('project',)
 
 
 class DataObjectAdmin(admin.ModelAdmin):
-    list_display = ('id', 'deposit')
+    list_display = ('deposit',)
 
 
-class DataobjectMdsetAdmin(admin.ModelAdmin):
-    list_display = ('dataobject', 'klt')
+class KeyLabelTypeAdmin(admin.ModelAdmin):
+    list_display = ('key', 'label', 'datatype')
 
 
-admin.site.register(PrMdSet, PrMdsetAdmin)
-admin.site.register(DepositMdSet, DepositMdsetAdmin)
-admin.site.register(DataObjectMdSet, DataobjectMdsetAdmin)
+class PrMdSetAdmin(admin.ModelAdmin):
+    list_display = ('project', 'klt')
+
+
+class ValueAdmin(admin.ModelAdmin):
+    list_display = ('metadataset', 'value_text', 'value_int', 'value_float')
+
+
+admin.site.register(MetadataSet, PrMdSetAdmin)
+admin.site.register(Projects, ProjectsAdmin)
 admin.site.register(Deposit, DepositAdmin)
 admin.site.register(DataObject, DataObjectAdmin)
-admin.site.register(Projects, PrAdmin)
-admin.site.register(Klt, KltAdmin)
-admin.site.register(Organization, OrganizationAdmin)
-
+admin.site.register(KeyLabelType, KeyLabelTypeAdmin)
+admin.site.register(Value, ValueAdmin)

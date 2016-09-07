@@ -1,52 +1,44 @@
 
 <!DOCTYPE html>
-<html lang='en'>
-<head prefix='og: http://ogp.me/ns#'>
-<meta charset='utf-8'>
-<meta content='IE=edge' http-equiv='X-UA-Compatible'>
-<meta content='object' property='og:type'>
-<meta content='GitLab' property='og:site_name'>
-<meta content='Sign in' property='og:title'>
-<meta content='GitLab Community Edition' property='og:description'>
-<meta content='https://git.zib.de/assets/gitlab_logo-cdf021b35c4e6bb149e26460f26fae81e80552bc879179dd80e9e9266b14e894.png' property='og:image'>
-<meta content='https://git.zib.de/users/sign_in' property='og:url'>
-<meta content='summary' property='twitter:card'>
-<meta content='Sign in' property='twitter:title'>
-<meta content='GitLab Community Edition' property='twitter:description'>
-<meta content='https://git.zib.de/assets/gitlab_logo-cdf021b35c4e6bb149e26460f26fae81e80552bc879179dd80e9e9266b14e894.png' property='twitter:image'>
-
-{# block for Title #}
+<html lang="en">
+<head prefix="og: http://ogp.me/ns#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="object" property="og:type">
+<meta content="Data Deposit Portal" property="og:site_name">
+<meta content="Sign in" property="og:title">
+<meta content="Data Deposit Portal" property="og:description">
+{#<meta content="https://git.zib.de/assets/gitlab_logo-7ae504fe4f68fdebb3c2034e36621930cd36ea87924c11ff65dbcb8ed50dca58.png" property="og:image">#}
+<meta content="https://git.zib.de/users/sign_in" property="og:url">
+<meta content="summary" property="twitter:card">
+<meta content="Sign in" property="twitter:title">
+<meta content="Data Deposit Portal" property="twitter:description">
+{#<meta content="https://git.zib.de/assets/gitlab_logo-7ae504fe4f68fdebb3c2034e36621930cd36ea87924c11ff65dbcb8ed50dca58.png" property="twitter:image">#}
 
 <title> {% block title %} {% endblock %} </title>
 
-<meta content='GitLab Community Edition' name='description'>
-<link rel="shortcut icon" type="image/x-icon" href="/static/images/zib_logo_header.png" />
-<link rel="stylesheet" media="all" href="/static/css/all.css" />
-<link rel="stylesheet" media="print" href="/static/css/print.css" />
-<script src="/static/js/script.js"></script>
+<meta content="Data Deposit Portal" name="description">
+{#<link rel="shortcut icon" type="image/x-icon" href="/assets/favicon-075eba76312e8421991a0c1f89a89ee81678bcde72319dd3e8047e2a47cd3a42.ico" />#}
+<link rel="stylesheet" media="all" href="/static/css/git1.css" />
+<link rel="stylesheet" media="print" href="/static/css/git2.css" />
+<script src="/static/js/fromgitlab.js"></script>
 <meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token" content="qK1ZNOQaroQuh27H3uukc2LCIoi+Tl4rrBItpt4+iu+XDTLVJVsbLmSqzKv6b1s9b7DI5FExbyKOlIlv/lBSSg==" />
+<meta name="csrf-token" content="oZGp0rldg5CmprkzG+6i+0l0BOKkOLrsFv5eNrUITvVFBw0ZHtZMIcqCOPMshhMt5LOHIUT0nhA1wS4Cw6DDJQ==" />
+<meta content="origin-when-cross-origin" name="referrer">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+<meta content="#474D57" name="theme-color">
+{#<link rel="apple-touch-icon" type="image/x-icon" href="/assets/touch-icon-iphone-5a9cee0e8a51212e70b90c87c12f382c428870c0ff67d1eb034d884b78d2dae7.png" />#}
+{#<link rel="apple-touch-icon" type="image/x-icon" href="/assets/touch-icon-ipad-a6eec6aeb9da138e507593b464fdac213047e49d3093fc30e90d9a995df83ba3.png" sizes="76x76" />#}
+{#<link rel="apple-touch-icon" type="image/x-icon" href="/assets/touch-icon-iphone-retina-72e2aadf86513a56e050e7f0f2355deaa19cc17ed97bbe5147847f2748e5a3e3.png" sizes="120x120" />#}
+{#<link rel="apple-touch-icon" type="image/x-icon" href="/assets/touch-icon-ipad-retina-8ebe416f5313483d9c1bc772b5bbe03ecad52a54eba443e5215a22caed2a16a2.png" sizes="152x152" />#}
+{#<link color="rgb(226, 67, 41)" href="/assets/logo-d36b5212042cebc89b96df4bf6ac24e43db316143e89926c0db839ff694d2de4.svg" rel="mask-icon">#}
+{#<meta content="/assets/msapplication-tile-1196ec67452f618d39cdd85e2e3a542f76574c071051ae7effbfde01710eb17d.png" name="msapplication-TileImage">#}
+<meta content="#30353E" name="msapplication-TileColor">
 
-<script>
-//<![CDATA[
-window.gon={};gon.api_version="v3";gon.default_avatar_url="https://git.zib.de/assets/no_avatar-07eeb128b993e74003e8664cff0b8e1e7234cec0443766a6763df32ca3472c23.png";gon.default_issues_tracker="gitlab";gon.max_file_size=10;gon.relative_url_root="";gon.user_color_scheme="white";
-//]]>
-</script>
 
-<meta content='origin-when-cross-origin' name='referrer'>
-<meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport'>
-<meta content='#474D57' name='theme-color'>
-<link rel="apple-touch-icon" type="image/x-icon" href="/assets/touch-icon-iphone-2d64ecc33893baab71adc15ff19a803a59911cc2651fb9d4d62af1379ff89aab.png" />
-<link rel="apple-touch-icon" type="image/x-icon" href="/assets/touch-icon-ipad-d08897d57e1bc9400024ac15465340e832a8e7b166b91624138d48ea2c739596.png" sizes="76x76" />
-<link rel="apple-touch-icon" type="image/x-icon" href="/assets/touch-icon-iphone-retina-81446c57f3351d1dacd0fb5f23ced74ba63d3878810bedea343999c6a12b3915.png" sizes="120x120" />
-<link rel="apple-touch-icon" type="image/x-icon" href="/assets/touch-icon-ipad-retina-e2a776da039936ac240e76615add47b25ab77c75a5fa2d1b3907f83d5502b911.png" sizes="152x152" />
-<link color='rgb(226, 67, 41)' href='/assets/logo-d36b5212042cebc89b96df4bf6ac24e43db316143e89926c0db839ff694d2de4.svg' rel='mask-icon'>
-<meta content='/assets/msapplication-tile-49c9c46afd2ab9bbf35e69138bc62f8c31fa55584bd494956ac6e58e6aadc813.png' name='msapplication-TileImage'>
-<meta content='#30353E' name='msapplication-TileColor'>
 
 
 <style>
-
   [data-user-is] {
     display: none !important;
   }
@@ -71,54 +63,74 @@ window.gon={};gon.api_version="v3";gon.default_avatar_url="https://git.zib.de/as
     display: none !important;
   }
 </style>
+
 </head>
 
 
-<body class='ui_charcoal login-page application navless'>
-<header class='navbar navbar-fixed-top navbar-empty'>
-<div class='container'>
-<div class='center-logo'>
 
-<img src=" /static/images/zib_logo_header.png" alt=" Zib-logo" style="width:36px;height:36px;">
+<body class="ui_charcoal login-page application navless">
+
+{% block content %}
+
+<script>
+{#//<![CDATA[#}
+{#window.gon={};gon.api_version="v3";gon.default_avatar_url="https://git.zib.de/assets/no_avatar-849f9c04a3a0d0cea2424ae97b27447dc64a7dbfae83c036c45b403392f0e8ba.png";gon.max_file_size=10;gon.relative_url_root="";gon.shortcuts_path="/help/shortcuts";gon.user_color_scheme="white";gon.award_menu_url="/emojis";#}
+{#//]]>#}
+</script>
+
+{#Logo of Git in header #}
+<header class="navbar navbar-fixed-top navbar-empty">
+<div class="container">
+<div class="center-logo">
+<svg width="36" height="36" id="tanuki-logo">
+  <path id="tanuki-right-ear" class="tanuki-shape" fill="#e24329" d="M2 14l9.38 9v-9l-4-12.28c-.205-.632-1.176-.632-1.38 0z"/>
+  <path id="tanuki-left-ear" class="tanuki-shape" fill="#e24329" d="M34 14l-9.38 9v-9l4-12.28c.205-.632 1.176-.632 1.38 0z"/>
+  <path id="tanuki-nose" class="tanuki-shape" fill="#e24329" d="M18,34.38 3,14 33,14 Z"/>
+  <path id="tanuki-right-eye" class="tanuki-shape" fill="#fc6d26" d="M18,34.38 11.38,14 2,14 6,25Z"/>
+  <path id="tanuki-left-eye" class="tanuki-shape" fill="#fc6d26" d="M18,34.38 24.62,14 34,14 30,25Z"/>
+  <path id="tanuki-right-cheek" class="tanuki-shape" fill="#fca326" d="M2 14L.1 20.16c-.18.565 0 1.2.5 1.56l17.42 12.66z"/>
+  <path id="tanuki-left-cheek" class="tanuki-shape" fill="#fca326" d="M34 14l1.9 6.16c.18.565 0 1.2-.5 1.56L18 34.38z"/>
+</svg>
 
 </div>
 </div>
 </header>
 
-<div class='container navless-container'>
-<div class='content'>
-<div class='flash-container'>
-</div>
 
 
-<div class='row'>
-<div class='col-sm-5 pull-right'>
+<div class="container navless-container">
+<div class="content">
+{#<div class="flash-container flash-container-page">#}
+{#<div class="flash-alert">#}
+{#You need to sign in or sign up before continuing.#}
+{#</div>#}
+{#</div>#}
+
+<div class="row">
+<div class="col-sm-5 pull-right">
 <div>
-<div class='login-box'>
-<div class='login-heading'>
+<div class="login-box">
+<div class="login-heading">
 <h3>Existing user? Sign in</h3>
 </div>
-<div class='login-body'>
-<ul class='nav-links'>
-<li class='active'>
+<div class="login-body">
+<ul class="nav-links">
+<li class="active">
 <a data-toggle="tab" href="#tab-ldapmain">LDAP</a>
 </li>
 <li>
 <a data-toggle="tab" href="#tab-signin">Standard</a>
 </li>
-
-
-{#    Space for OAuth#}
-
-
 </ul>
-<div class='tab-content'>
-<div class='active tab-pane' id='tab-ldapmain'>
-<form id="new_ldap_user" action="/users/auth/ldapmain/callback" accept-charset="UTF-8" method="post">{% csrf_token %}
+<div class="tab-content">
+<div class="active tab-pane" id="tab-ldapmain">
+
+{#LDAP FORM#}
+<form id="new_ldap_user" action="signin/ldap_auth" accept-charset="UTF-8" method="post">
 <input type="text" name="username" id="username" class="form-control top" placeholder="LDAP Login" autofocus="autofocus" />
-<input type="password" name="password" id="password" class="form-control bottom" placeholder="Password" />
-<div class='remember-me checkbox'>
-<label for='remember_me'>
+<input type="password" name="password" id="password" class="form-control bottom" placeholder="Password" />{% csrf_token %}
+<div class="remember-me checkbox">
+<label for="remember_me">
 <input type="checkbox" name="remember_me" id="remember_me" value="1" />
 <span>Remember me</span>
 </label>
@@ -126,25 +138,19 @@ window.gon={};gon.api_version="v3";gon.default_avatar_url="https://git.zib.de/as
 <button name="button" type="submit" class="btn-save btn">Sign in</button>
 </form>
 
-
-
 </div>
-<div class='tab-pane' id='tab-signin'>
+<div class="tab-pane" id="tab-signin">
 
-{#{% block Standard %}#}
-
-<form class="new_user" id="new_user" action="/users/sign_in" accept-charset="UTF-8" method="post">{% csrf_token %}
-<input class="form-control top" placeholder="Username or Email" type="text" name="user[login]" id="user_login" />
-<input class="form-control bottom" placeholder="Password" type="password" name="user[password]" id="user_password" />
-
-{#{% endblock %}#}
-
-<div class='remember-me checkbox'>
-<label for='user_remember_me'>
+{#STANDARD FORM#}
+<form class="new_user" id="new_user" action="signin/std_auth" accept-charset="UTF-8" method="post">
+<input type="text" name="username" id="username" class="form-control top"  placeholder="Username" autofocus="autofocus" />
+<input type="password" name="password" id="password" class="form-control bottom"  placeholder="Password"   />{% csrf_token %}
+<div class="remember-me checkbox">
+<label for="user_remember_me">
 <input name="user[remember_me]" type="hidden" value="0" /><input type="checkbox" value="1" name="user[remember_me]" id="user_remember_me" />
 <span>Remember me</span>
 </label>
-<div class='pull-right'>
+<div class="pull-right">
 <a href="/users/password/new">Forgot your password?</a>
 </div>
 </div>
@@ -153,77 +159,49 @@ window.gon={};gon.api_version="v3";gon.default_avatar_url="https://git.zib.de/as
 </div>
 </form>
 
-
-
 </div>
 </div>
 </div>
 </div>
 
-<div class='prepend-top-20'>
-<div class='login-box'>
-<div class='login-heading'>
-<h3>New user? Create an account</h3>
+<div class="prepend-top-20">
+<div class="clearfix prepend-top-20">
+{#<p>#}
+{#<span class="light">Didn't receive a confirmation email?</span>#}
+{#<a href="/users/confirmation/new">Request a new one</a>.#}
+{#</p>#}
 </div>
-<div class='login-body'>
-<form class="new_user" id="new_user" action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="mtgLiNQImMxCB3noIq/SESi+aJcSu260YmD6/e6iNGqleGBpFUktZggq24QGKy1fJcyC+/3EX71A5l40zszszw==" /><div class='devise-errors'>
 
 </div>
-<div>
-<input class="form-control top" placeholder="Name" required="required" type="text" name="user[name]" id="user_name" />
 </div>
-<div>
-<input class="form-control middle" placeholder="Username" required="required" type="text" name="user[username]" id="user_username" />
+
 </div>
-<div>
-<input class="form-control middle" placeholder="Email" required="required" type="email" value="" name="user[email]" id="user_email" />
-</div>
-<div class='form-group append-bottom-20' id='password-strength'>
-<input class="form-control bottom" id="user_password_sign_up" placeholder="Password" required="required" type="password" name="user[password]" />
-</div>
-<div></div>
-<div>
-<input type="submit" name="commit" value="Sign up" class="btn-create btn" />
-</div>
-</form>
-</div>
-</div>
-<div class='clearfix prepend-top-20'>
+<div class="col-sm-7 brand-holder pull-left">
+<h1>
+Data Deposit Portal
+</h1>
+<h3>Online Portal for Data Transfer from External Collaborators</h3>
 <p>
-<span class='light'>Didn't receive a confirmation email?</span>
-<a href="/users/confirmation/new">Request a new one</a>.
+The goal of this project is to develop a web-based tool to upload data in a standardized way including the acquisition of mandatory
+and optional meta data. This project together with the project on "Research Data Management at ZIB" should be seen as a joint
+effort to further improve the data management at ZIB.
 </p>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class='col-sm-7 brand-holder pull-left'>
-<h1> Data Transfer Portal </h1>
-<h3> Online Portal for Data Transfer from External Collaborators </h3>
-<p>
-The goal of this project is to develop a web-based tool to upload data in a standardized way including the acquisition of mandatory and optional meta data.
-This project together with the project on "Research Data Management at ZIB" should be seen as a joint effort to further improve the data management at ZIB.
-Each project can have an issue tracker and a wiki.
-</p>
-<p><br>
-<strong>Welcome to <a href="http://www.zib.de" rel="nofollow noreferrer">ZIB</a> DTP!</strong><br>
-You can find more information @ <a href="https://wiki.zib.de/confluence/display/ZIBINTERN/DTP" rel="nofollow noreferrer">ZIB-Wiki</a> .<br>
-<br><br><br><br><br><br><br><br><br><br>
-
-<a href="http://www.zib.de/impressum" rel="nofollow noreferrer">Impressum</a> </p>
+{#<p><br><br><br>#}
+{#<strong>Welcome to <a href="http://www.zib.de" rel="nofollow noreferrer" target="_blank">ZIB</a> Data Deposit Portal!</strong><br>#}
+{#More information you can find in <a href="https://wiki.zib.de/confluence/display/ZIBINTERN/DataDepositPortal" rel="nofollow noreferrer" target="_blank">ZIB-Wiki</a> .<br>#}
 </div>
 </div>
 </div>
 </div>
 <hr>
-<div class='container'>
-<div class='footer-links'>
-<a href="/explore">Explore</a>
+<div class="container">
+<div class="footer-links">
+<a href="http://www.zib.de/projects/online-portal-data-transfer-external-collaborators">About DataDepositPortal</a>
 <a href="/help">Help</a>
-<a href="https://dtp.zib.de/">About DTP</a>
+<a href="http://www.zib.de/impressum" rel="nofollow noreferrer" target="_blank">Impressum</a> </p>
 </div>
 </div>
+{#end of content block#}
+{% endblock %}
 </body>
 </html>

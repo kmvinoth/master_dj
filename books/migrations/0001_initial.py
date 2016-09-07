@@ -2,9 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import enumfields.fields
-import datetime
-import books.models
+import books.fields
 
 
 class Migration(migrations.Migration):
@@ -16,80 +14,81 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DataObject',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
             ],
-        ),
-        migrations.CreateModel(
-            name='DataObjectMdSet',
-            fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('dataobject', models.ForeignKey(to='books.DataObject')),
-            ],
+            options={
+                'verbose_name_plural': 'DataObject',
+            },
         ),
         migrations.CreateModel(
             name='Deposit',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
             ],
+            options={
+                'verbose_name_plural': 'Deposit',
+            },
         ),
         migrations.CreateModel(
-            name='DepositMdSet',
+            name='KeyLabelType',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('deposit', models.ForeignKey(to='books.Deposit')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Klt',
-            fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('key', models.CharField(blank=True, null=True, max_length=100)),
                 ('label', models.CharField(max_length=100)),
-                ('key', models.CharField(max_length=100)),
-                ('value', models.CharField(null=True, max_length=100, blank=True)),
-                ('type', models.CharField(max_length=100)),
+                ('datatype', books.fields.DataTypeField(choices=[('text', 'Text'), ('float', 'Float'), ('int', 'Integer')], max_length=10)),
             ],
+            options={
+                'verbose_name_plural': 'KeyLabelType',
+            },
+        ),
+        migrations.CreateModel(
+            name='MetadataSet',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('dataobject', models.ForeignKey(to='books.DataObject')),
+                ('deposit', models.ForeignKey(to='books.Deposit')),
+                ('klt', models.ForeignKey(to='books.KeyLabelType')),
+            ],
+            options={
+                'verbose_name_plural': 'MetadataSet',
+            },
         ),
         migrations.CreateModel(
             name='Organization',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('Name', models.CharField(max_length=100)),
-                ('Identifier', models.CharField(null=True, max_length=100, blank=True)),
+                ('Identifier', models.CharField(blank=True, null=True, max_length=100)),
             ],
-        ),
-        migrations.CreateModel(
-            name='PrMdSet',
-            fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('klt', models.ForeignKey(to='books.Klt')),
-            ],
+            options={
+                'verbose_name_plural': 'Organization',
+            },
         ),
         migrations.CreateModel(
             name='Projects',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('Name', models.CharField(max_length=100)),
-                ('PrId', models.CharField(null=True, max_length=100, blank=True)),
-                ('StartDate', models.DateField(null=True, default=datetime.date.today, blank=True)),
-                ('EndDate', models.DateField(null=True, default=datetime.date.today, blank=True)),
-                ('Status', enumfields.fields.EnumField(enum=books.models.StatusFlag, null=True, max_length=10, blank=True)),
-                ('ProjectHead', models.CharField(null=True, max_length=100, blank=True)),
-                ('Description', models.TextField(null=True, blank=True)),
-                ('organization', models.ForeignKey(to='books.Organization')),
             ],
+            options={
+                'verbose_name_plural': 'Projects',
+            },
+        ),
+        migrations.CreateModel(
+            name='Value',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('value_text', models.CharField(default=None, blank=True, null=True, max_length=100)),
+                ('value_int', models.IntegerField(default=None, blank=True, null=True)),
+                ('value_float', models.DecimalField(max_digits=6, default=None, decimal_places=4, blank=True, null=True)),
+                ('metadataset', models.ForeignKey(to='books.MetadataSet')),
+            ],
+            options={
+                'verbose_name_plural': 'Value',
+            },
         ),
         migrations.AddField(
-            model_name='prmdset',
-            name='project',
-            field=models.ForeignKey(to='books.Projects'),
-        ),
-        migrations.AddField(
-            model_name='depositmdset',
-            name='klt',
-            field=models.ForeignKey(to='books.Klt'),
-        ),
-        migrations.AddField(
-            model_name='depositmdset',
+            model_name='metadataset',
             name='project',
             field=models.ForeignKey(to='books.Projects'),
         ),
@@ -97,16 +96,6 @@ class Migration(migrations.Migration):
             model_name='deposit',
             name='project',
             field=models.ForeignKey(to='books.Projects'),
-        ),
-        migrations.AddField(
-            model_name='dataobjectmdset',
-            name='deposit',
-            field=models.ForeignKey(to='books.Deposit'),
-        ),
-        migrations.AddField(
-            model_name='dataobjectmdset',
-            name='klt',
-            field=models.ForeignKey(to='books.Klt'),
         ),
         migrations.AddField(
             model_name='dataobject',
