@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^search_form/$', search_form),
     url(r'^search/$', search),
     url(r'^admin/', admin.site.urls),
-    url(r'^digis/admin/', admin.site.urls),
+    url(r'^projects/admin', admin.site.urls),
     url(r'^login/$', std_login),
     url(r'^signin/std_auth$', std_auth),
     url(r'^ldap_login/$', ldap_login),

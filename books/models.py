@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from enumfields import Enum
 from enumfields import EnumField
-from .fields import DataTypeField, ValueField
+from .fields import DataTypeField
 from .validators import *
 
 
@@ -12,8 +12,8 @@ from .validators import *
 #     OPEN = 'open'
 #     CLOSED = 'closed'
 
-class KeyLabelType(models.Model):
 
+class KeyLabelType(models.Model):
 
     TYPE_TEXT = 'text'
     TYPE_FLOAT = 'float'
@@ -59,8 +59,8 @@ class KeyLabelType(models.Model):
 
 # As of now only one organization (ZIB)
 class Organization(models.Model):
-    Name       = models.CharField(max_length=100)
-    Identifier = models.CharField(max_length=100, blank=True, null=True)
+    name       = models.CharField(max_length=100)
+    identifier = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.Name
@@ -70,13 +70,36 @@ class Organization(models.Model):
 
 
 class Projects(models.Model):
-    Name = models.CharField(max_length=100)
+    name  = models.CharField(max_length=100)
+    admin = models.ForeignKey(User)
 
     def __str__(self):
-        return self.Name
+        return self.name
 
     class Meta:
         verbose_name_plural = "Projects"
+
+
+class Roles(models.Model):
+    role = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.role
+
+    class Meta:
+        verbose_name_plural = "Role"
+
+
+class ProjectAdmin(models.Model):
+    user    = models.ForeignKey(User)
+    project = models.ForeignKey(Projects)
+    role    = models.ForeignKey(Roles)
+
+    # def __str__(self):
+    #     return self.project
+
+    class Meta:
+        verbose_name_plural = "ProjectAdmin"
 
 
 class Deposit(models.Model):

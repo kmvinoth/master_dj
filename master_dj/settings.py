@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'books',
     'django_python3_ldap',
+    'rules',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -83,7 +84,7 @@ WSGI_APPLICATION = 'master_dj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'models_db'),
+        'NAME': os.path.join(BASE_DIR, 'perms_db'),
     }
 }
 
@@ -108,9 +109,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Authentication backends
-AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',
+AUTHENTICATION_BACKENDS = ('rules.permissions.ObjectPermissionBackend',
+                           'django.contrib.auth.backends.ModelBackend',
                            'django_python3_ldap.auth.LDAPBackend',
+
                            )
+
+ROLEPERMISSIONS_MODULE = 'master_dj.roles'
 
 """ LDAP Configuration settings """
 # The URL of the LDAP server.

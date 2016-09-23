@@ -2,9 +2,11 @@ from django.http import HttpResponse, HttpResponseRedirect  # HttpResponse is a 
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django_python3_ldap import ldap
-from .forms import *
-from django.contrib.auth.models import User
 from .models import *
+from rolepermissions.shortcuts import assign_role
+from rolepermissions.verifications import has_object_permission
+
+
 
 
 def search_form(request):
@@ -85,6 +87,7 @@ def ldap_auth(request):
 
 # After authentication and login this view decides who gets what
 def project_member_view(request):
+
     if request.user.groups.filter(name='Project_admin').exists():
         return project_admin_view(request)
     else:
@@ -96,7 +99,15 @@ def project_admin_view(request):
 
 
 def projects_view(request):
-    return render(request, 'projects.html')
+    user = User.objects.get(id=1)
+
+    user_role = assign_role(user, 'project_admin')
+
+    project_instance = Projects.objects.get(id=1)
+
+    if has_object_permission('access_project', user, project_instance):
+        print("Access Granted")
+        return render(request, 'projects.html')
 
 
 def deposit_view(request):
