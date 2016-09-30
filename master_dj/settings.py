@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'master_dj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'perms_db'),
+        'NAME': os.path.join(BASE_DIR, 'today_db'),
     }
 }
 

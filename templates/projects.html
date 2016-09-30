@@ -4,12 +4,14 @@
 
 {% block content %}
 
-    <p>Hi {{ user.firstname }}, You are a Project admin </p>
+    <p>Hi {{user}}, Your Project(s)</p>
 
-    <a href="/NewProject"> NewProject </a> <br>
+{#    {% for pr in projects %}#}
+{##}
+{#       <li> <a href = "{{ pr.project }} "> {{ pr.project }}</a> </li>#}
+{##}
+{#    {% endfor %}#}
 
-    <p>Display all the projects, where the User is a member (the User may be having different roles in different project and multiple roles in single project).</p>
+    <a href = "/projects/{{ projects }}"> {{ projects}}</a> <br>
 
 {% endblock %}
-
-

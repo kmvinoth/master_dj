@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="2732404798">
+  <component name="DataSourceManagerImpl" format="xml" hash="683596771">
     <data-source source="LOCAL" name="Django default" uuid="9691898a-ef22-4d17-9472-0b1369c0c5a5">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>
       <remarks>$PROJECT_DIR$/master_dj/settings.py</remarks>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/perms_db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/today_db</jdbc-url>
       <explain-plan-config>
         <provider>com.intellij.database.plan.ExplainPlanProvider.NullExplainPlanProvider</provider>
       </explain-plan-config>

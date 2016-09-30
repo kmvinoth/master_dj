@@ -3,23 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django_python3_ldap import ldap
 from .models import *
-from rolepermissions.shortcuts import assign_role
-from rolepermissions.verifications import has_object_permission
-
-
-
-
-def search_form(request):
-    return render(request, 'search_form.html')
-
-
-def search(request):
-    # print(request.META)
-    if 'q' in request.GET:
-        message = 'You searched for: %r' % request.GET['q']
-    else:
-        message = 'You submitted an empty form.'
-    return HttpResponse(message)
+import rules
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def home(request):
@@ -29,15 +14,6 @@ def home(request):
 # View for Standard login template
 def std_login(request):
     return render(request, 'login.html')
-
-
-# def display_meta(request):
-#     values = request.META.items()
-#     values.sort()
-#     html = []
-#     for k, v in values:
-#         html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, v))
-#     return HttpResponse('<table>%s</table>' % '\n'.join(html))
 
 
 # View for Standard authentication and login
@@ -86,34 +62,57 @@ def ldap_auth(request):
 
 
 # After authentication and login this view decides who gets what
+
 def project_member_view(request):
 
-    if request.user.groups.filter(name='Project_admin').exists():
-        return project_admin_view(request)
-    else:
-        return render(request, 'Project_member.html')
+    # If the user is added as Project admin, he get's the Admin (project admin) link in his page,
+    # so that he can do admin activities for the specified project
+    # else the user gets the project member view
+    try:
+        mem_inst = ProjectMember.objects.get(user=request.user)
+        # cast mem_inst.role to string
+        role     = str(mem_inst.role)
+        project  = str(mem_inst.project)
+        # print(role)
+        if role == 'Admin':
+            return render(request, 'Project_admin.html', {'projects': project})
+        else:
+            return render(request, 'Project_member.html', {'projects': project})
+    except ObjectDoesNotExist:
+        return HttpResponse('The user has not been assigned to any Project')
 
 
 def project_admin_view(request):
     return render(request, 'Project_admin.html')
 
 
-def projects_view(request):
-    user = User.objects.get(id=1)
-
-    user_role = assign_role(user, 'project_admin')
-
-    project_instance = Projects.objects.get(id=1)
-
-    if has_object_permission('access_project', user, project_instance):
-        print("Access Granted")
-        return render(request, 'projects.html')
+# View to display the projects in which the user is a project member (irrespective of the role)
+def display_projects_to_member(request):
+        pr_inst = ProjectMember.objects.get(user=request.user)
+        project = str(pr_inst.project)
+        return render(request, 'projects.html', {'projects': project})
 
 
-def deposit_view(request):
-    return render(request, 'deposit.html')
+# View to display the project content to the project member
+def display_project_content(request):
+    return HttpResponse("Your project content will displayed soon to you")
 
 
-def dataobject_view(request):
-    return render(request, 'fileupload.html')
+# Views related to Project admin
+def admin_edit_project(request):
+    pr_inst = ProjectMember.objects.get(user=request.user)
+    project = str(pr_inst.project)
+    return render(request, 'modify_project.html', {'projects': project})
 
+
+# Views related to Project admin
+def add_user_to_project(request):
+    add_user_form = ProjectMemberForm
+    form_inst = ProjectMemberForm(request.POST)
+    form_inst.save()
+    return render(request, 'Add_user_to_project_form.html', {'form': add_user_form})
+
+
+# Views related to Project admin
+def add_metadata_to_project(request):
+        return HttpResponse("Display project_metadata.html form")

@@ -26,18 +26,18 @@ from books.views import*
 
 urlpatterns = [
     url(r'^$', home),
-    url(r'^search_form/$', search_form),
-    url(r'^search/$', search),
     url(r'^admin/', admin.site.urls),
-    url(r'^projects/admin', admin.site.urls),
     url(r'^login/$', std_login),
     url(r'^signin/std_auth$', std_auth),
     url(r'^ldap_login/$', ldap_login),
     url(r'^signin/ldap_auth$', ldap_auth),
+    url(r'^projects$', display_projects_to_member),
+    url(r'^projects/\w+$', display_project_content),
+    url(r'^\w+/admin$', admin_edit_project),
+    url(r'^\w+/admin/add_user$', add_user_to_project),
+    url(r'^\w+/admin/add_project_metadata$', add_metadata_to_project),
     # url(r'^login/$', login, {'template_name': 'login.html', 'extra_context': {'next': '/login_success'}}),
     url(r'^login_success/$', project_member_view),
     url(r'^loggedout/$', logout, {'template_name': 'logout.html', 'extra_context': {'next': '/logout'}}),
-    url(r'^projects/$', projects_view,),
-    url(r'^deposit/$', deposit_view,),
-    url(r'^fileupload/$', dataobject_view,),
+
 ]

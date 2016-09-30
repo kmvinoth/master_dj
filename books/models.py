@@ -6,6 +6,7 @@ from enumfields import Enum
 from enumfields import EnumField
 from .fields import DataTypeField
 from .validators import *
+from django.forms import ModelForm
 
 
 # class StatusFlag(Enum):
@@ -71,7 +72,6 @@ class Organization(models.Model):
 
 class Projects(models.Model):
     name  = models.CharField(max_length=100)
-    admin = models.ForeignKey(User)
 
     def __str__(self):
         return self.name
@@ -80,26 +80,37 @@ class Projects(models.Model):
         verbose_name_plural = "Projects"
 
 
+class Permissions(models.Model):
+    permission = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.permission
+
+    class Meta:
+        verbose_name_plural = "Permissions"
+
+
 class Roles(models.Model):
-    role = models.CharField(max_length=50)
+    role        = models.CharField(max_length=100)
+    permissions = models.ForeignKey(Permissions)
 
     def __str__(self):
         return self.role
 
     class Meta:
-        verbose_name_plural = "Role"
+        verbose_name_plural = "Roles"
 
 
-class ProjectAdmin(models.Model):
-    user    = models.ForeignKey(User)
-    project = models.ForeignKey(Projects)
-    role    = models.ForeignKey(Roles)
+class ProjectMember(models.Model):
+    project = models.ForeignKey(Projects, blank=True, null=True)
+    user    = models.ForeignKey(User, blank=True, null=True)
+    role    = models.ForeignKey(Roles, blank=True, null=True)
 
     # def __str__(self):
     #     return self.project
 
     class Meta:
-        verbose_name_plural = "ProjectAdmin"
+        verbose_name_plural = "ProjectMember"
 
 
 class Deposit(models.Model):
@@ -127,8 +138,8 @@ class MetadataSet(models.Model):
     # Model fields are defined here
     project    = models.ForeignKey(Projects, blank=True, null=True)
     deposit    = models.ForeignKey(Deposit, blank=True, null=True)
-    dataobject = models.ForeignKey(DataObject,blank=True, null=True)
-    klt        = models.ForeignKey(KeyLabelType,blank=True, null=True)
+    dataobject = models.ForeignKey(DataObject, blank=True, null=True)
+    klt        = models.ForeignKey(KeyLabelType, blank=True, null=True)
 
     def __str__(self):
         return str(self.project)
@@ -140,7 +151,7 @@ class MetadataSet(models.Model):
 class Value(models.Model):
 
     # Model fields are defined here
-    metadataset = models.ForeignKey(MetadataSet)
+    metadataset        = models.ForeignKey(MetadataSet)
     value_text         = models.CharField(blank=True, null=True, default=None, max_length=100)
     value_int          = models.IntegerField(blank=True, null=True, default=None)
     value_float        = models.DecimalField(blank=True, null=True, default=None, max_digits=6, decimal_places=4)
@@ -160,4 +171,13 @@ class Value(models.Model):
 # Budget          = models.IntegerField(blank=True, null=True)
 # Partners        = models.CharField(max_length=100, blank=True, null=True)
 # FundingAgency   = models.CharField(max_length=100, blank=True, null=True)
+
+
+class ProjectMemberForm(ModelForm):
+
+    class Meta:
+        model = ProjectMember
+        fields = ['project', 'user', 'role']
+
+
 
